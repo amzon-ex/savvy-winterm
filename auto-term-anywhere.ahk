@@ -1,24 +1,27 @@
 ﻿; TO-DO: (1) Ignore explorer when non-path locations open (start with ::)
-; TO-DO: (2) Only open in folder when explorer window in focus
 
 
 #NoEnv  ; Recommended for performance and compatibility with future AutoHotkey releases.
 ; #Warn  ; Enable warnings to assist with detecting common errors.
 SendMode Input  ; Recommended for new scripts due to its superior speed and reliability.
 
-GetExplorerPath(hwnd=0){
-  if(hwnd==0){
+GetExplorerPath(hwnd = 0)
+{
+  if(hwnd == 0)
+  {
     explorerHwnd := WinActive("ahk_class CabinetWClass")
-    if(explorerHwnd==0)
-      explorerHwnd := WinExist("ahk_class CabinetWClass")
   }
   else
-    explorerHwnd := WinExist("ahk_class CabinetWClass ahk_id " . hwnd)
+  {
+    explorerHwnd := WinActive("ahk_class CabinetWClass ahk_id " . hwnd)
+  }
   
-  if (explorerHwnd){
+  if (explorerHwnd)
+  {
     for window in ComObjCreate("Shell.Application").Windows{
-      try{
-        if (window && window.hwnd && window.hwnd==explorerHwnd)
+      try
+      {
+        if (window && window.hwnd && window.hwnd == explorerHwnd)
           return window.Document.Folder.Self.Path
       }
     }
