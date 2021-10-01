@@ -1,4 +1,4 @@
-﻿; TO-DO: (1) Ignore explorer when non-path locations open (start with ::)
+﻿; Reamrks: (1) Ignored explorer when non-path locations open (start with ::), but method seems weird
 
 
 #NoEnv  ; Recommended for performance and compatibility with future AutoHotkey releases.
@@ -22,7 +22,11 @@ GetExplorerPath(hwnd = 0)
       try
       {
         if (window && window.hwnd && window.hwnd == explorerHwnd)
-          return window.Document.Folder.Self.Path
+          pathwin := window.Document.Folder.Self.Path
+          if (not InStr(pathwin, "::{"))
+          {
+            return pathwin
+          }
       }
     }
   }
