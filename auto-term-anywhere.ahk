@@ -1,4 +1,4 @@
-﻿; Reamrks: (1) Ignored explorer when non-path locations open (start with ::), but method seems weird
+﻿; Remarks: (1) Ignored explorer when non-path locations open (start with ::), but method seems weird
 
 
 #NoEnv  ; Recommended for performance and compatibility with future AutoHotkey releases.
@@ -68,6 +68,11 @@ SwitchToWindowsTerminal()
     {
       Run, wt
     }
+
+    ; Wait for 3 seconds to check if window has appeared
+    WinWait, ahk_exe WindowsTerminal.exe,,3
+
+    WinActivate
   }
 }
 
