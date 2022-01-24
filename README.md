@@ -10,3 +10,6 @@ Additionally, if Windows Explorer is open (and in focus), you can use the hotkey
 #### TO-DO:
 1. Ignore "Search Result" folders in a consistent manner
 2. Ignore explorer when non-path CLSID locations are open : currently partially implemented using a workaround which ignores all CLSID paths*
+
+#### Remarks:
+1. If the terminal loses focus on launch and your default shell is in WSL, it might be related to <https://github.com/microsoft/wslg/issues/443>
