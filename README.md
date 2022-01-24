@@ -8,4 +8,5 @@ An AutoHotKey script to open Windows Terminal from anywhere (Inspired by [this](
 Additionally, if Windows Explorer is open (and in focus), you can use the hotkey (by default, `Win+C`) to open the terminal at the current folder. Otherwise, it opens in the default user folder `%USERPROFILE%`.
 
 #### TO-DO:
-1. Ignore explorer when non-path locations open (start with ::) : currently implemented using a workaround*
+1. Ignore "Search Result" folders in a consistent manner
+2. Ignore explorer when non-path CLSID locations are open : currently partially implemented using a workaround which ignores all CLSID paths*

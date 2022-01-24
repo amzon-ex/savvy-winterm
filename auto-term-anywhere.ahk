@@ -1,32 +1,26 @@
-﻿; Remarks: (1) Ignored explorer when non-path locations open (start with ::), but method seems weird
+﻿; TO-DO: Find a proper way to ignore "Search Result" pages
+; Remarks: (1) Ignored explorer when non-path locations open (start with ::), but method seems weird
 
 
 #NoEnv  ; Recommended for performance and compatibility with future AutoHotkey releases.
 ; #Warn  ; Enable warnings to assist with detecting common errors.
 SendMode Input  ; Recommended for new scripts due to its superior speed and reliability.
 
-GetExplorerPath(hwnd = 0)
+GetExplorerPath()
 {
-  if(hwnd == 0)
-  {
-    explorerHwnd := WinActive("ahk_class CabinetWClass")
-  }
-  else
-  {
-    explorerHwnd := WinActive("ahk_class CabinetWClass ahk_id " . hwnd)
-  }
-  
+  explorerHwnd := WinActive("ahk_class CabinetWClass")
   if (explorerHwnd)
   {
     for window in ComObjCreate("Shell.Application").Windows{
       try
       {
-        if (window && window.hwnd && window.hwnd == explorerHwnd)
+        if (window && window.hwnd && window.hwnd == explorerHwnd) {
           pathwin := window.Document.Folder.Self.Path
           if (not InStr(pathwin, "::{"))
           {
             return pathwin
           }
+        }
       }
     }
   }
@@ -62,21 +56,19 @@ SwitchToWindowsTerminal()
     explorerIsOpen := GetExplorerPath()
     if (explorerIsOpen)
     {
-      Run, wt -d %explorerIsOpen%
+      Run, wt -d "%explorerIsOpen%"
     }
     else
     {
       Run, wt
     }
 
-    ; Wait for 3 seconds to check if window has appeared
     WinWait, ahk_exe WindowsTerminal.exe,,3
-
-    WinActivate
+    WinWaitNotActive, ahk_exe WindowsTerminal.exe,,5
+    if ErrorLevel = 0   ; i.e. it's not blank or zero.
+        WinActivate
   }
 }
 
 ; Hotkey to use Win+C to launch/restore the Windows Terminal.
 #c::SwitchToWindowsTerminal()
-
-
