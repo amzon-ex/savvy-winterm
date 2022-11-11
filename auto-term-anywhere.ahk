@@ -1,25 +1,26 @@
-﻿; TO-DO: Find a proper way to ignore "Search Result" pages
-; Remarks: (1) Ignored explorer when non-path locations open (start with ::), but method seems weird
+﻿; TO-DO: Network locations create issues
 
 
 #NoEnv  ; Recommended for performance and compatibility with future AutoHotkey releases.
 ; #Warn  ; Enable warnings to assist with detecting common errors.
 SendMode Input  ; Recommended for new scripts due to its superior speed and reliability.
+#SingleInstance, Force
 
 GetExplorerPath()
 {
+  WinGetActiveTitle, activeTitle
   explorerHwnd := WinActive("ahk_class CabinetWClass")
   if (explorerHwnd)
   {
     for window in ComObjCreate("Shell.Application").Windows{
       try
       {
-        if (window && window.hwnd && window.hwnd == explorerHwnd) {
-          pathwin := window.Document.Folder.Self.Path
-          if (not InStr(pathwin, "::{"))
-          {
-            return pathwin
-          }
+        if (window && window.hwnd && window.hwnd == explorerHwnd && activeTitle == window.LocationName) {
+          pathwintmp := window.LocationURL
+          pathwin := RegExReplace(pathwintmp, "^file:/{2,}")
+          pathwin := RegExReplace(pathwin, "%20", " ")
+
+          return pathwin
         }
       }
     }
