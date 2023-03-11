@@ -7,6 +7,8 @@ An AutoHotKey script to open Windows Terminal from anywhere (Inspired by [this](
 
 Additionally, if Windows Explorer is open (and in focus), you can use the hotkey (by default, `Win+C`) to open the terminal at the current folder. Otherwise, it opens in the default user folder `%USERPROFILE%` or whatever your terminal was set to.
 
+`auto-term-anywhere.ahk` is a v1 script. `auto-term-anywhere-v2.ahk` is a v2 script, converted conveniently using this [v1-to-v2 converter](https://github.com/mmikeww/AHK-v2-script-converter).
+
 #### TO-DO:
 1. Network locations create an issue
 #### Remarks:
