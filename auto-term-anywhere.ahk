@@ -72,4 +72,4 @@ SwitchToWindowsTerminal()
 }
 
 ; Hotkey to use Win+C to launch/restore the Windows Terminal.
-#c::SwitchToWindowsTerminal()
+#!c::SwitchToWindowsTerminal()
